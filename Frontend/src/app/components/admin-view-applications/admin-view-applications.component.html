@@ -1,0 +1,189 @@
+<div class="px-4 pt-20 lg:pt-28 lg:px-16">
+  <div class="flex justify-between mb-2">
+    <span class="my-auto font-semibold">Applications</span>
+    <span
+      ><span
+        class="hidden btn btn-ghost btn-sm capitalize gap-1 my-auto font-semibold"
+        >Show all <i class="fi fi-rr-eye"></i></span
+    ></span>
+  </div>
+  <div class="w-full hidden lg:flex">
+    <table class="table table-fixed w-full">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Details</th>
+          <th>School</th>
+          <th>Charged Amount</th>
+          <th>Uploaded Documents</th>
+          <th>Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr
+          (click)="selectApplication(application.application_id)"
+          *ngFor="let application of viewApps; index as i"
+        >
+          <td
+            class="transition-all hover:scale-95 cursor-pointer"
+            (click)="selectOwner(application.owner.user_id)"
+          >
+            <div class="flex items-center space-x-3">
+              <div class="avatar">
+                <div class="mask mask-squircle w-12 h-12">
+                  <img
+                    [src]="application.owner.image"
+                    alt="Owner profile image"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">
+                  {{ application.owner.name }} {{ application.owner.surname }}
+                </div>
+                <div class="text-sm opacity-50">
+                  {{ application.vehicle.brand }}
+                  {{ application.vehicle.model }}
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="transition-all hover:scale-95 cursor-pointer w-full overflow-auto text-ellipsis"
+            (click)="selectSchool(application.school.school_id)"
+          >
+            {{ application.school.school_name }}
+            <br />
+            <span class="badge badge-ghost badge-sm">{{
+              application.school.school_location
+            }}</span>
+          </td>
+          <td>
+            <!--price -->
+            {{ application.application.price.replace("$", "R") }}
+          </td>
+          <td class="flex gap-3">
+            <!-- button for document -->
+            <label for="my-modal-4" class="btn btn-info text-white" (click)="setPdf(application.vehicle)">
+              <i class="fi fi-rr-eye"></i>
+            </label>
+            <button
+              [ngClass]="
+                load
+                  ? 'btn btn-info capitalize gap-2 loading text-white font-normal'
+                  : 'btn btn-info capitalize font-normal gap-2'
+              "
+              (click)="viewDocument(application.vehicle.document)"
+            >
+              <span class="text-white">Download</span>
+              <i class="fi fi-rr-document text-white"></i>
+            </button>
+          </td>
+          <td>
+            <div class="flex justify-start gap-2 w-full mx-auto">
+              <label
+                for="my-modal-6"
+                class="btn btn-info text-white capitalize font-normal"
+                (click)="
+                  declineApplication(application.application.application_id)
+                "
+              >
+                Decline</label
+              >
+
+              <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+              <div class="modal modal-bottom sm:modal-middle">
+                <div class="modal-box">
+                  <h3 class="font-bold text-lg text-left">Provide Feedback</h3>
+                  <form
+                    [formGroup]="feedback"
+                    (submit)="onDecline(feedback)"
+                    class="w-full"
+                  >
+                    <textarea
+                      class="textarea bg-accent w-full"
+                      placeholder="Enter feedback here ..."
+                      formControlName="feedback"
+                    ></textarea>
+
+                    <div class="modal-action">
+                      <label
+                        for="my-modal-6"
+                        style="background-color: var(--main-dark)"
+                        class="btn text-white capitalize font-normal"
+                        >Cancel</label
+                      >
+                      <button
+                        [ngClass]="
+                          loadDecline
+                            ? 'btn capitalize btn-error loading font-normal'
+                            : 'btn capitalize btn-error font-normal'
+                        "
+                      >
+                        <span class="text-white">{{ messageDecline }}</span>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <button
+                style="background-color: var(--main-dark)"
+                class="btn capitalize text-white font-normal"
+                (click)="approveApplication(application.application)"
+              >
+                <span class="text-white">Approve</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+  <label for="my-modal-4" class="modal cursor-pointer">
+    <label class="modal-box relative max-w-3xl" for="">
+      <pdf-viewer [src]="pdfView"
+      [render-text]="true"
+      [original-size]="false"
+      style="width: 720px; height: 800px"></pdf-viewer>
+
+
+      <button (click)="viewDocument(pdfView)" class="btn btn-info rounded-full absolute bottom-2 right-3"><i class="fi fi-rr-download"></i></button>
+
+    </label>
+  </label>
+
+  <div class="flex lg:hidden flex-col gap-2">
+    <div
+      class="flex px-2 h-24 w-full bg-accent mx-auto rounded-xl relative"
+      *ngFor="let application of viewApps; index as i"
+      (click)="openApplication(application.application.application_id)"
+    >
+      <img
+        class="w-20 h-20 object-cover rounded-xl my-auto"
+        [src]="application.owner.image"
+        alt=""
+      />
+      <div class="flex flex-col pt-4 pl-4">
+        <div class="name font-medium">
+          {{ application.owner.name }} {{ application.owner.surname }}
+        </div>
+        <p style="color: var(--grey-light)" class="text-sm">
+          {{ application.vehicle.brand }} {{ application.vehicle.model }}
+        </p>
+        <p style="color: var(--grey-light)" class="text-xs">
+          {{ application.school.school_name }}
+        </p>
+      </div>
+
+      <div
+        class="flex h-5 w-fit px-3 absolute top-0 right-0 text-xs rounded-bl-xl rounded-tr-lg bg-neutral"
+      >
+        <span class="text-white font-bold my-auto">New</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.details{
+  line-height: 3px;
+  &span{
+  line-height: 3px;
+  }
+}
+
+.schools{
+  @apply bg-accent
+}
+.schools:nth-child(2n){
+  @apply bg-secondary
+}
+
+.owners{
+  @apply bg-accent
+}
+
+.owners:nth-child(2n){
+  @apply bg-secondary
+}
+
+
+
+
