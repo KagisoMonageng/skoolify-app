@@ -8,7 +8,7 @@ import { Application } from 'express';
   providedIn: 'root'
 })
 export class OwnerService {
-  baseUrl='http://localhost:8080/owner'
+  baseUrl='https://skoolify-api.vercel.app/owner'
   private dataSubject = new Subject<any>();
   data$ = this.dataSubject.asObservable();
   setData(data: any) {

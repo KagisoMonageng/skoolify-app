@@ -7,7 +7,7 @@ import { RequestInterface } from 'src/app/interfaces/request';
   providedIn: 'root'
 })
 export class OwnerService {
-  baseUrl = 'http://localhost:8080/owner';
+  baseUrl = 'https://skoolify-api.vercel.app/owner';
   constructor(private http : HttpClient) { }
 
   viewRequests(owner_id:number):Observable<RequestInterface[]>{

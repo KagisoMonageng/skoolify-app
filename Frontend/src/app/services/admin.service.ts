@@ -14,7 +14,7 @@ import { Vehicle } from '../interfaces/vehicle';
 export class AdminService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'http://localhost:8080/admin';
+  baseUrl = 'https://skoolify-api.vercel.app/admin';
 
   //Schools
   viewSchools(): Observable<School[]> {

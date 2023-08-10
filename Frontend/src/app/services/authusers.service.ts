@@ -7,14 +7,14 @@ export class AuthusersService {
   constructor(private http: HttpClient) {}
   //auth
   postData(data: any) {
-    return this.http.post('http://localhost:8080/register', data);
+    return this.http.post('https://skoolify-api.vercel.app/register', data);
   }
   loginData(data: any) {
-    return this.http.post('http://localhost:8080/login', data);
+    return this.http.post('https://skoolify-api.vercel.app/login', data);
   }
 
   forgotPassword(data:any){
-    return this.http.post('http://localhost:8080/account/forgotPassword', data);
+    return this.http.post('https://skoolify-api.vercel.app/account/forgotPassword', data);
   }
   //saving data
   saveToken(token: string) {

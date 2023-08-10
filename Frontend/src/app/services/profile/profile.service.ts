@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProfileService {
 
-  baseUrl = 'http://localhost:8080/account';
+  baseUrl = 'https://skoolify-api.vercel.app/account';
   constructor(private http: HttpClient) { }
 
   getAccount(user_id:number)

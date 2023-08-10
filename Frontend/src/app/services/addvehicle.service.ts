@@ -14,7 +14,7 @@ const ownerID= localStorage.getItem('owner_id')
 })
 export class AddvehicleService  {
 
-  baseUrl : String = 'http://localhost:8080/vehicle';
+  baseUrl : String = 'https://skoolify-api.vercel.app/vehicle';
 
   constructor(private http:HttpClient) { }
 

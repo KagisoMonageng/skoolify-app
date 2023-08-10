@@ -12,7 +12,7 @@ const ownerID= localStorage.getItem('owner_id')
 })
 export class ParentService {
 
-  baseUrl='http://localhost:8080/parent'
+  baseUrl='https://skoolify-api.vercel.app/parent'
 
   constructor(private http:HttpClient) { }
 
