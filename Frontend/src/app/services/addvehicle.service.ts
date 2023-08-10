@@ -24,7 +24,7 @@ export class AddvehicleService  {
 
   getVehicleClients(vehicle_id:number)
   {
-    return this.http.get('http://localhost:8080/owner/vehicle/clients/'+ vehicle_id)
+    return this.http.get(this.baseUrl+'/owner/vehicle/clients/'+ vehicle_id)
   }
 
   getVehicles(): Observable<any> {
@@ -33,7 +33,7 @@ export class AddvehicleService  {
 
   viewvehicle(owner_id:number){
 
-    return this.http.get("http://localhost:8080/vehicle/viewvehicle/"+owner_id)
+    return this.http.get(this.baseUrl+"/vehicle/viewvehicle/"+owner_id)
   }
 
 

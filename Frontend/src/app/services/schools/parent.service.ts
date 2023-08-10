@@ -17,7 +17,7 @@ export class ParentService {
   constructor(private http:HttpClient) { }
 
   getSchool():Observable<School[]>{
-    return this.http.get<School[]>(`${this.baseUrl}/getSchool`)
+    return this.http.get<School[]>(this.baseUrl+'/getSchool')
   }
 
   getAllRequests(parent_id:any)
